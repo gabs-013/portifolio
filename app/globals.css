@@ -1,0 +1,152 @@
+@import "tailwindcss";
+
+/* ───────── Design tokens: "The Control Room" ───────── */
+@theme inline {
+  /* TikTok palette: black, white, red and cyan (the logo's offset pair) */
+  --color-ink: #010101;
+  --color-graphite: #161823;
+  --color-paper: #ffffff;
+  --color-bone: #f1f1f2;
+  --color-mist: #8a8b91;
+  --color-tally: #fe2c55; /* TikTok red: the main accent */
+  --color-aqua: #25f4ee; /* TikTok cyan: only on dark backgrounds */
+
+  --font-serif: var(--font-sans-face), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-sans: var(--font-sans-face), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: var(--font-sans-face), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+:root {
+  --nav-h: 76px;
+}
+
+html {
+  background: var(--color-ink);
+  scroll-padding-top: calc(var(--nav-h) + 8px);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  background: var(--color-ink);
+  color: var(--color-paper);
+  font-family: var(--font-sans);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+@media (min-width: 768px) {
+  body {
+    font-size: 1.125rem;
+  }
+}
+
+::selection {
+  background: var(--color-tally);
+  color: var(--color-ink);
+}
+
+/* Focus: always visible */
+:focus-visible {
+  outline: 2px solid var(--color-tally);
+  outline-offset: 3px;
+}
+.on-tally :focus-visible {
+  outline-color: var(--color-ink);
+}
+
+/* ───────── Type scale ───────── */
+.display {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  line-height: 1.04;
+  letter-spacing: -0.035em;
+}
+.display em {
+  font-style: normal;
+}
+/* TikTok-style red/cyan offset on one key word per headline (dark backgrounds only) */
+.glitch {
+  color: #fff;
+  text-shadow:
+    -0.035em -0.02em 0 var(--color-aqua),
+    0.035em 0.02em 0 var(--color-tally);
+}
+.h-hero {
+  font-size: clamp(2.3rem, 5.6vw, 4.9rem);
+}
+.h-section {
+  font-size: clamp(1.9rem, 3.9vw, 3.3rem);
+}
+.h-sub {
+  font-size: clamp(1.25rem, 1.8vw, 1.6rem);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+.label {
+  font-family: var(--font-sans);
+  font-size: 0.8125rem; /* 13px: smallest text on the site */
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.5;
+}
+/* Interactive controls: 44px minimum hit area */
+.tap {
+  /* No display rule on purpose: pair it with `inline-flex` or `flex` explicitly,
+     so responsive utilities like `hidden md:inline-flex` keep working. */
+  align-items: center;
+  min-height: 44px;
+}
+.num {
+  font-family: var(--font-sans);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+  font-variant-numeric: lining-nums;
+}
+
+/* Hairline rules */
+.rule-ink {
+  border-color: rgba(1, 1, 1, 0.14);
+}
+.rule-paper {
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+/* Details marker reset */
+summary {
+  list-style: none;
+}
+summary::-webkit-details-marker {
+  display: none;
+}
+details[open] .plus {
+  transform: rotate(45deg);
+}
+
+/* ───────── Print (résumé page) ───────── */
+@page {
+  margin: 14mm;
+}
+@media print {
+  :root {
+    color-scheme: light !important;
+  }
+  body::after {
+    display: none;
+  }
+  .no-print {
+    display: none !important;
+  }
+  html,
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+}

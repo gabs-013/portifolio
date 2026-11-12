@@ -1,0 +1,23 @@
+# Netlify: build the static export and publish ./out
+[build]
+  command = "npm run export"
+  publish = "out"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/_next/static/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# The old Tools page now lives on the AI page.
+[[redirects]]
+  from = "/tools"
+  to = "/ai#tools"
+  status = 301
